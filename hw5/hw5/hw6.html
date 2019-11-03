@@ -1,0 +1,146 @@
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <script>
+        // удалить из строки повторяющиеся символы
+        var first = '1234156117181119999';
+        let arr = first.split('');
+
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = i + 1; j < arr.length; j++) {
+                if (arr[i] === arr[j]) {
+                    arr.splice(j, 1);
+                    // уменьшаем счетчик на 1 чтобы не пропустить элементы из-за уменьшения длины массива.
+                    j--
+                }
+            }
+        }
+        first = arr.join('')
+        console.log(first)
+
+        // количество слов в строке
+        var second = 'Hi, i am learning javascript';
+        let quantityLetter = second.split(' ').length;
+        console.log(quantityLetter);
+
+        // самое длинное слово в строке
+
+        var third = 'Hi, i am learning javascript';
+
+        let thirdArr = third.split(' ');
+        let longWord = 0
+        for (let i = 0; i < thirdArr.length; i++) {
+            if (thirdArr[i].length > longWord) {
+                longWord = thirdArr[i].length;
+            }
+        }
+        console.log(longWord);
+
+        // или через sort()
+        let thirdArrSort = third.split(' ').sort((a, b) => b.length - a.length);
+        let longWordSort = thirdArrSort[0].length;
+        console.log(longWordSort);
+        
+
+        // удалить пробелы в строке
+        var fourth = 'Hi, i am learning javascript';
+        let fourthArr = fourth.split(' ');
+        fourth = fourthArr.join('');
+        console.log(fourth);
+
+
+        // заменить пробелы на зяпятые
+        var fifth = 'Hi, i am learning javascript';
+        let fifthArr = fifth.split(' ');
+        fifth = fifthArr.join(',');
+        console.log(fifth)
+
+        // Отфильтровать массив таким образом чтобы числа были не меньше 20 используя фильтр!
+        var sixth = [3, 42, 234, 5, 3, 21, 53];
+        sixth = sixth.filter(item => item > 20);
+        console.log(sixth);
+
+        // Вернуть новый массив из строк добавив слово месяц если к элементу если число больше 20 используя map
+        // [3, '42 месяца', '23 месяца', 5, 3, '21 месяца', '53 месяца']
+        var seventh = [3, 42, 23, 5, 3, 21, 53];
+        seventh = seventh.map(item => {
+            if (item > 20) {
+                return item + ' месяца'
+            } else {
+                return item
+            }
+        })
+        console.log(seventh)
+
+        // используя reduce просуммировать элементы которые больше 3
+        var eight = [3, 42, 23, 5, 3, 21, 53];
+        let eightResult = eight.reduce((a, b) => {
+            if (b > 3) {
+                return a + b;
+            }
+            return a;
+
+        }, 0)
+
+        console.log(eightResult);
+
+        // Есть обьект car! пробежаться по обьекту через for in и подсчитать количество свойств в обьекте, 
+        const car = {
+            model: 'BMW',
+            price: 45000,
+            year: 2019,
+            country: 'Germany'
+        };
+
+        let quantityOfCar = 0;
+        for (let item in car) {
+            quantityOfCar++
+        }
+        console.log(quantityOfCar);
+
+        // либо способ с лишними переменными
+
+        //  let carArr = [];
+
+        // for (let item in car) {
+        // carArr.push(item);
+        // }
+
+        // let quantity = carArr.length;
+        // console.log(quantity);
+
+        
+
+        // Написать функцию которая принимает только поле array обьекта person и сортирует по убыванию по id и возвращает массив!!
+        const person = {
+            name: 'Vasia',
+            gender: 'male',
+            array: [{ id: 1, name: 'Vasia' }, { id: 6, name: 'Boria' }, { id: 2, name: 'Petia' }, { id: 3, name: 'Misha' }]
+        };
+
+        function sortObjArray(obj) {
+            let arrInObg = obj.array;
+            return arrInObg.sort((a, b) => b.id - a.id);
+
+            // либо решение подлиннее:
+            // for (let i = 0; i < arrInObg.length; i++) {
+            //     for (let j = 0; j < arrInObg.length; j++)
+            //         if (arrInObg[i].id > arrInObg[j].id) {
+            //             let sort = arrInObg[i].id;
+            //             arrInObg[i].id = arrInObg[j].id
+            //             arrInObg[j].id = sort
+            //         }
+
+            // return arrInObg;
+        }
+        console.log(sortObjArray(person))
+        
+
+    </script>
+</body>
+
+</html>

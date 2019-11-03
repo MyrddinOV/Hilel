@@ -1,0 +1,214 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT HW3</title>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+
+    <script>
+
+
+
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Написать функцию которая принимает 2 параметра перемножает и возвращает значение!!!
+        function multiply(a, b) {
+            return a * b;
+        }
+        multiply(5, 10);
+
+
+        // 2) Написать функцию которая принимает 3 параметра и возвращает найменьшее из них
+        function min(a, b, c) {
+            if (a < b && a < c) {
+                return a;
+            } else if (b < a && b < c) {
+                return b;
+            } else {
+                return c;
+            }
+        }
+        min(100, 33, 11);
+
+        //3) Написать функцию которая 
+        //  -принимает массив, 
+        //  -сохраняет непарные числа в новый массив, 
+        //  -сортирует массив
+        // - и возвращает отсортированный массив
+        function sortOddNumbers(array) {
+            let arrOdd = [];
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] % 2 != 0) {
+                    arrOdd.push(array[i]);
+
+                }
+            }
+            arrOdd.sort((a, b) => a - b);
+
+            // Либо отсортировать это через циклы ниже.
+
+            // for (let i = 0; i < arrOdd.length; i++) {
+
+            //     for (let j = 0; j < arrOdd.length; j++) {  
+            //         if (arrOdd[i] < arrOdd[j]) {            
+            //             let saveNum = arrOdd[i];
+            //             arrOdd[i] = arrOdd[j];
+            //             arrOdd[j] = saveNum;
+            //         }
+            //     }
+            // }
+            return arrOdd;
+        }
+        sortOddNumbers([2, 5, 3, 6, 9, 8, 10, 11])
+
+        // 4) Написать функцию котороя принимает массив, и выводит новый массив из тех элементов которые кратны 5!!
+        function multipleOfFive(array) {
+            let arrFive = [];
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] % 5 == 0) {
+                    arrFive.push(array[i]);
+
+                }
+            }
+            return arrFive;
+        }
+        multipleOfFive([20, 5, 3, 23, 15, 8, 10, 11]);
+
+
+        // 5) Написать функцию котороя принимает массив из строк, и возвращает кокатенацию из элементов первые символы которых
+        // совпадают с этой подстрокой 'jitb'. Используем  toLowerCase() и indexOf() методы  !!
+        function matchWithString(array) {
+            const str = 'jitb';
+            let strFin = '';
+
+
+
+            for (let i = 0; i < str.length; i++) {   // вначале проходим циклом по каждому символу строки. 
+                const char = str[i].toLowerCase();      // тут на всякий случай привел к нижнему регистру и строку тоже (вдруг кто-то захочет написать строку КАПСОМ:)) )
+                for (let j = 0; j < array.length; j++) {    // Цикл по элементам массива. 
+                    const word = array[j];                  // переменная для более короткой записи далее.
+                    const lowerCasedWord = word.toLowerCase();  // нижний регистр для элементов массива.
+
+                    if (lowerCasedWord.indexOf(char) === 0) {  // Если первый символ элемента из массива совпадет с символом из строки (вначале проверяет совпадения с 'j' потом с 'i' и тд),                                                   
+                        strFin += word + ' ';                   // то складываем слова из массива в переменную strFin          
+                    }
+                }
+            }
+
+            return strFin
+        }
+
+        console.log(matchWithString(['Javascript', 'nice', 'coding', 'is', 'the', 'language', 'Best', 'worst'])); // должно вывести javascript is the best
+
+
+        // 6) Написать функцию котороя принимает строку и возвращает подстроку и количество таких подстрок в строке! 
+        function sameSubstring(str) {
+            let strInArr = str.split('');        // Создал массив из всех символов входящих в строку.
+            let firstSymbol = strInArr[0];
+            let newStr = '';
+            let res = [];
+            var i = 0;
+            strInArr.forEach(function (element) {      // воспользовался данным методом для ранее созданного массива, который проходит по всем элементам массива и применяет функцию к его элементам.
+                if (element === firstSymbol) {         // те, если данную запись можно было записать и через цикл for 
+                    i++
+                }
+            })
+            newStr = str.substr(0, str.length / i);    // в новую строку добавляем под строку начиная с символа 0 по символ (длина строки делённая на кол-во повторяющихся символов)
+            res.push(newStr);                           // добавляем подстроку в новый массив
+            res.push(i);                                // добавляем кол-во таких подстрок в массив и возвращаем результат.    
+            return res;
+
+        }
+        console.log(sameSubstring('fdfdfdfd')); // рузльтат массив из ['fd', 4]
+        sameSubstring('xxxxxx'); // рузльтат массив из ['x', 6]
+        sameSubstring('xyzxyzxyz'); // рузльтат массив из ['xyz', 3]
+
+
+
+        // 7) Написать функцию которая перемножает числа от 5 до 10 через рекурсию!!!
+        function recursive(number) {
+            return (number != 4 && number != 11) ? number * recursive(number + 1) : 1;
+        }
+        recursive(5);
+
+        // 8) Написать функцию котороя принимает число и проверяет простое ли число, если да то возвращает true иначе false!!
+        function isPrime(num) {
+            for (let i = 2; i < num - 1; i++) {
+                if (num % i !== 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        isPrime(7); // true
+        isPrime(6); // false
+        isPrime(9); // false
+
+        // Advanced Решить эту задачу другим способом!! То есть реверс главной и побочной!
+        //  1
+        var arr = [             
+            [1, 2, 3, 4],
+            [5, 6, 7, 8],
+            [9, 10, 11, 12],
+            [13, 14, 15, 16]
+        ];
+
+        
+        // 2 Создать форму Имя, эмеил, пароль и кнопка send! По клику показать alert, что поля заполнены или наоборот!Можно двинутся дальше и реализовать pop-up а не alert!
+
+        
+        const rootElem = document.getElementById('root');   //как то так с алертом, если я правильно понял задание ))
+        const form = document.createElement('div')
+        const name = document.createElement('input');
+        const eMail = document.createElement('input');
+        const password = document.createElement('input');
+        const send = document.createElement('button');
+         
+
+        name.type = 'text';
+        eMail.type = 'text';
+        password.type = 'text';
+        send.type = 'submit';
+        send.innerHTML = 'Send';
+
+        form.appendChild(name);
+        form.appendChild(eMail);
+        form.appendChild(password);
+        form.appendChild(send);
+        rootElem.appendChild(form)
+
+        rootElem.setAttribute('style', `
+        width: 200px;
+        margin: 0 auto;
+        border: 1px solid black;
+        `);
+        form.setAttribute('style', `
+        margin: 5px auto;
+        width: 175px;
+        
+        `);
+        eMail.style.marginTop = '5px';
+        password.style.marginTop = '5px';
+        send.style.marginTop = '5px';
+
+        send.addEventListener('click', alarm);
+
+        function alarm() {
+            if (name.value === '' || eMail.value === '' || password.value === '') {
+                alert('Поля не заполнены')
+            } else {
+                alert('Поля заполнены. Все ОК')
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

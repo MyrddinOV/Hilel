@@ -1,0 +1,272 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script>
+        // Добраться до числа 43 и также добраться до 109
+        const first = [4, [5, 4, 6, [5, 1, 109, 3, [2, 10, 43, 22, 32]]]];
+        first[1][3][4][2] // 43
+        first[1][3][2]    // 109
+
+        // Пробежаться через цикл for и если значение меньше 5 то перезаписать его на значение 11 
+        // то есть результат должен быть [ 11, 10, 17, 11, 11 , 11 , 11 ];
+        const zero = [4, 10, 17, 2, 3, 1, 0];
+        for (let i = 0; i < zero.length; i++) {
+            if (zero[i] < 5) {
+                zero[i] = 11
+            }
+        }
+
+
+
+        // Пробежаться через цикл for и четные елементы перемножить и записать результат в odd и вывести
+        // то есть перемножить в цикле 4 17 3 10   
+        const multiply = [4, 10, 17, 2, 3, 1, 10];
+        let odd = 1;
+        for (let i = 0; i < multiply.length; i++) {
+            if (i % 2 == 0) {
+                odd *= multiply[i]
+            }
+        }
+        console.log(odd) // 2040
+
+
+        // Вывести только нечетные числа используя цикл: 
+        // - for,
+        // - while 
+        const second = [1, 5, 10, 4, 2, 3];
+        for (let i = 0; i < second.length; i++) {
+            if (second[i] % 2 != 0) {
+                console.log(second[i])  // 1, 5, 3
+            }
+        }
+
+        let i = 0;
+        while (i < second.length) {
+            if (second[i] % 2 != 0) {
+                console.log(second[i])  // 1, 5, 3
+            }
+            i++;
+        }
+
+
+
+        // Найти минимальное значение и вывести
+        const third = [10, 2, 4, 43, 5, 3, 19, 23];
+        let min = third[0];
+        for (let i = 0; i < third.length; i++) {
+            if (min > third[i]) {
+                min = third[i]
+            }
+        }
+        console.log(min);
+
+
+
+        // Вывести все елементы в цикле for в обратном порядке то есть 28 19 14 9 23 43 3 4
+        const fourth = [4, 3, 43, 23, 9, 14, 19, 28];
+        for (let i = fourth.length - 1; i >= 0; i--) {
+            console.log(fourth[i])
+        }
+
+        // Найти произведение  всех елементов
+        const fifth = [9, 14, 19, 28];
+        let mul = 1;
+        for (let i = 0; i < fifth.length; i++) {
+            mul *= fifth[i];
+        }
+
+
+
+        // Пройтись через цикл for и сложить все числа в массиве и вывести результат!
+        const sixth = [9, 4, 19, 18];
+        let sum = 0;
+        for (let i = 0; i < sixth.length; i++) {
+            sum += sixth[i];
+        }
+        console.log(sum)
+
+
+        // Пройтись через цикл for и найти среднее арифметическое все елементов
+        // среднее арифметическое - это сумма всех елементов, разделенная на их количество!
+        const seventh = [2, 0, 3, 29, 23, 19];
+        let middle = 0;
+        for (let i = 0; i < seventh.length; i++) {
+            middle = middle + seventh[i]
+        }
+        middle /= seventh.length;
+
+
+        // Записать в массив eighth числа от 5 до 17 через цикл:
+        // - for,
+        // - while 
+        const eighth = [];
+
+        for (let i = 5; i <= 17; i++) {
+            eighth[i] = i;  // создает лишние, пустые элементы в массиве (первые 5), можно записать еще как-то так:
+            // for (let i = 0; i <= 12; i++) {
+            // eighth[i] = i + 5                - без пустых строк массива 
+
+            // ну либо через метод push():
+            // eighth.push(i);
+
+
+        }
+        // в цикле while оставил через метод push()
+        let j = 5
+        while (j <= 17) {
+            eighth.push(j);
+            j++
+        }
+
+
+
+        // ADVANCED ЗАДАНИЯ!!!! ТО ЕСТЬ НЕОБЯЗАТЕЛЬНЫЕ!!!!!!!!
+
+
+        // Отсортировать массив по возростанию! и вывести не используя sort!
+        const ninth = [1, 2, 18, 3, 38, 41, 0];
+        for (let i = 0; i < ninth.length; i++) {
+
+            for (let j = 0; j < ninth.length; j++) {  // сравниваем каждое значение со всеми остальными в этом массиве.
+                if (ninth[i] < ninth[j]) {            // и сортируем массив методом перезаписи значений по возрастанию.
+                    let num = ninth[i];
+                    ninth[i] = ninth[j];
+                    ninth[j] = num;
+                }
+            }
+        }
+        console.log(ninth)
+
+
+        // Есть строкa в переменной ninth!! Нужно пройтись циклом for и записать в переменную res строку со значением 2a1f3c1b
+        // так как если обратить внимание то в строке 'aafcccb' символ а идет последовательно 2 раза далее f только один символ, символ с последовательно 3 раза
+        // и символ b один раз
+        const tenth = 'aafcccb';
+        let res = '';
+        for (let i = 0; i < tenth.length; i++) {  // идем через цикл и если находим хоть один повторяющийся элемент то
+            if (tenth[i] === tenth[i + 1]) {      // создаем счетчик из кол-ва таких повторений и суммируем их в цикле while
+                let repeatCount = 0;
+                let j = i
+                while (tenth[j] === tenth[i]) {
+                    repeatCount++;
+                    j++;
+                }
+                res += repeatCount + tenth[i];    // записываем в res кол-во этих повторяющихся символов + сам символ
+                i += repeatCount - 1;             
+            } else {
+                res += 1 + tenth[i]       // если символ уникален то просто добавляем 1 перед ним.
+            }
+
+        }
+        console.log(res)
+
+        // ЗДЕСЬ ЕЩЕ ТЯЖЕЛЕЙ нужно подсчитать количество одинаковых символов в строке и при этом одинаковые символы не идут последовательно!!
+        // то есть результат должен быть 4a3f4c
+
+
+        const eleventh = 'aafcccffbaac';  // здесь тупил тупил и что-то наворотил))
+        let newRes = '';
+        let ignore = [];                  // создал пустой массив чтобы исключать те символы которые уже посчитаны.
+
+
+        for (let i = 0; i < eleventh.length; i++) { 
+            const char = eleventh[i];                               // для удобства забил значение и-того элемента в char
+            if (!ignore.filter(item => item === char).length) {     // через метод filter() сделал проверку на повторяющиеся символы, чтобы их исключать
+                ignore.push(char)                                   
+                let sum = 0;
+
+                for (let j = 0; j < eleventh.length; j++) {         // во втором цикле идет поиск всех повторяющихся значений и их подсчет через в sum
+                    if (eleventh[i] === eleventh[j]) {
+                        sum++
+                    }
+                }
+                newRes += sum + char;                               // и запись в newRes
+            }
+        }
+
+
+
+        console.log(newRes)
+
+
+
+        // Тут не для новичков advanced! Нужно еще подобрать любую картинку для каждого языка прогр. и вставить в src!
+        // затем нужно вывести на html страницу картинки и под ними  name и description! 
+        // Блоки должны быть спозиционированы в ряд, если не хватает места то перенос на следующую!
+        // Блоки все должны быть одной ширины и высоты! 
+        const arr = [
+            {
+                id: 1,
+                name: 'Javascript',
+                description: 'JavaScript, often abbreviated as JS, is a high-level, interpreted scripting language that conforms to the ECMAScript specification. JavaScript has curly-bracket syntax, dynamic typing, prototype-based object-orientation, and first-class functions.',
+                src: 'https://webformyself.com/javascript/img/icon-js.png',
+            },
+            {
+                id: 2,
+                name: 'Python',
+                description: 'Python is an interpreted, high-level, general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python\'s design philosophy emphasizes code readability with its notable use of significant whitespace.',
+                src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Python_and_Qt.svg/1200px-Python_and_Qt.svg.png',
+            },
+            {
+                id: 3,
+                name: 'Php',
+                description: 'PHP: Hypertext Preprocessor is a general-purpose programming language originally designed for web development. It was originally created by Rasmus Lerdorf in 1994; the PHP reference implementation is now produced by The PHP Group.',
+                src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/1200px-PHP-logo.svg.png',
+            },
+            {
+                id: 4,
+                name: 'Java',
+                description: 'Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible',
+                src: 'https://s.dou.ua/img/announces/java_m09hQpL.jpg',
+            },
+            {
+                id: 5,
+                name: 'C++',
+                description: 'C++ is a general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language, or "C with Classes',
+                src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png',
+            }
+        ]
+        const rootElem = document.getElementById('root'); // получаем заранее созданый div и от него все строим.
+        const imgStyle = `   
+            width: 100px;
+            height: 100px;
+            display: block;
+        `                               // вынесли стили из цикла (для уменьшения строк в цикле)
+        rootElem.setAttribute('style', `
+            display: flex;
+            flex-wrap: wrap;
+        ` )                            // задал стили основному блоку
+
+        for (let i = 0; i < arr.length; i++) {
+            const itemData = arr[i];                                // получаем данные из массива arr
+            const item = document.createElement('div');             // создали элементы необходимые нам для вывода в браузер
+            const img = document.createElement('img');
+            const name = document.createElement('h3');
+            const description = document.createElement('p');
+
+            img.src = itemData.src;                                  // ссылка на ключ массива для получения картинки
+            img.setAttribute('style', imgStyle)                      // внес стили прописанные вне цикла
+            name.innerHTML = itemData.name;                         // ссылка на ключ массива для получения наименования языка программирования.
+            description.innerHTML = itemData.description;            // ссылка на ключ массива для получения описания языка программирования.
+
+
+            item.style.padding = '0 10px';                          // здесь оставил стили в цикле. Добавил отступы между блоками с 
+            item.style.width = '25%';                               // картинками и текстом, и задал длинну блоков.
+            item.appendChild(img);                                  // добавили элементы в html   
+            item.appendChild(name);
+            item.appendChild(description);
+            rootElem.appendChild(item);
+            
+        }
+
+
+    </script>
+</body>
+
+</html>

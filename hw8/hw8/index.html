@@ -1,0 +1,342 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT HW3</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Вывести все значения свойств обьектов в массиве
+        var arr5 = [
+            { author: 'Sergei', book: 'Sergei\'s book' },
+            { author: 'Ivan', book: 'Ivan\'s book' },
+            { author: 'Dmitrii', book: 'Dmitrii\'s book' }
+        ];
+
+        // 1
+        let [{ author: a1, book: b1 }, { author: a2, book: b2 }, { author: a3, book: b3 }] = arr5
+
+        let newArr2 = [a1, b1, a2, b2, a3, b3];
+
+        // 2
+        const newArr3 = arr5.map(item => [item.author, item.book])
+            .reduce((acc, item) => acc.concat(item))
+
+
+
+        console.log(newArr2)
+        console.log(newArr3)
+
+
+
+        //2) есть пустой обьект obj и три переменные k m n! добавить свойства к obj c ключами имена которых совпадают со значениями переменных 
+        // k, m, n и и значениями такими же как имя ключа!
+        var k = 'book';
+        var m = 'apartment';
+        var n = 'table';
+        var obj = {};
+
+        obj[k] = k
+        obj[m] = m
+        obj[n] = n
+
+        const obj2 = { [k]: k, [m]: m, [n]: n };
+
+
+        console.log(obj)
+        console.log(obj2)
+
+        // 3) Есть массив с обьектов claims нужно привести к такому виду чтобы получить один обьект с ключами id и со значением весь обьект
+        // Например 
+        // let newObj = {
+        //     // '1234': {
+        //     //     id: 1234,
+        //     //     model: 'MC7',
+        //     //     status: 'Open'
+        //     // },
+        //     // '3453': {
+        //     //     id: 3453,
+        //     //     model: 'MC7',
+        //     //     status: 'Open'
+        //     // }
+        //     //     // и так далее
+        // }
+        var claims = [
+            {
+                id: 1234,
+                model: 'MC7',
+                status: 'Open'
+            },
+            {
+                id: 3453,
+                model: 'MC7',
+                status: 'Open'
+            },
+            {
+                id: 6343,
+                model: 'Gran Tour',
+                status: 'Closed'
+            },
+            {
+                id: 7644,
+                status: 'In Progress'
+            },
+            {
+                id: 7686,
+                model: 'City Bike',
+                status: 'Closed'
+            },
+            {
+                id: 8356,
+                model: 'Bike',
+                status: 'Closed'
+            },
+            {
+                id: 9745,
+                model: 'Bicycle',
+                status: 'Closed'
+            },
+            {
+                id: 10253,
+                model: 'Bicycle',
+                status: 'Closed'
+            },
+            {
+                id: 14234,
+                model: 'Bike',
+                status: 'Closed'
+            }];
+
+
+
+        const newObj = claims.reduce((obj, item) => {
+            return {
+                ...obj,
+                [item.id]: item
+            }
+        }, {})
+
+        console.log(newObj);
+
+        //4) Дан массив arr! Вернуть те которые в квадрате меньше самого большого значения
+        const arr3 = [10, 6, 3, 5, 6, 2, 12, 64];
+        let result = [];
+
+        arr3.sort((a, b) => a - b);
+
+        for (let i = 0; i < arr3.length; i++) {
+            if (arr3[i] ** 2 < arr3[arr3.length - 1]) {
+                result.push(arr3[i])
+            }
+        }
+
+        console.log(result)
+
+
+        // 5) Написать свой собственный some! Функция должна принимать два параметра массив и функцию!!
+
+        function some(array, f) {
+            if (typeof f !== 'function') {
+                console.error('Callback is not a function');
+                return;
+            }
+
+            for (let curr of array) {
+                if (f(curr) === true) {
+                    return true;
+                }
+            }
+            return false
+        }
+        console.log(some([34, 2, 5, 1, 6, 3, 6], (el) => el > 4));
+
+
+        // 6) Переопределить toString функции getArrayClone и обьекта iron
+
+        function getArrayClone(arr) {
+            return arr.slice();
+        };
+
+        console.log(getArrayClone.toString());
+
+        getArrayClone.toString = () => 'Reordered function';
+
+        console.log(getArrayClone.toString());
+
+        const iron = {
+            power: 2000,
+            price: 2500
+        };
+
+        console.log(iron.toString());
+
+        iron.toString = () => 'Reordered iron';
+
+        console.log(iron.toString());
+
+
+
+        // 7)  Написать функцию которая записывает элементы из массива arr2 в новый массив которых нет в arr1!
+        var arr1 = [5, 2, 'a'];
+        var arr2 = [6, 5, 2, 4, 'a'];
+
+        function getDifference(arr1, arr2) {
+           return arr2.filter(item => !arr1.find(elem => elem === item));
+
+        }
+
+        console.log(getDifference(arr1, arr2))
+
+        // 8) Какой контекст имеет первый и второй массив?
+
+        // контекст вызова arr1 и arr2  глобальный объект window.
+        var arr1 = [5, 2, 'a'];
+        var arr2 = [6, 5, 2, 4, 'a'];
+
+        
+
+        // 9) Есть два обьекта! Вызвать getSpeed1() с контекстом car2 и getSpeed2 с контекстом car1
+
+        var car1 = {
+            speed: 200,
+            getSpeed1() {
+                return this.speed;
+            },
+        }
+        var car2 = {
+            speed: 220,
+            getSpeed2() {
+                return `${this.speed}km`;
+            },
+        }
+
+        console.log(car1.getSpeed1.call(car2));
+        console.log(car2.getSpeed2.call(car1))
+
+        //10) Есть массив из обьектов нужно отфильтровать только те у которых цена больше 40000 и где model не равна Mercedes с помощью filter!
+        const car = [
+            {
+                model: 'BMW',
+                price: 45000,
+                year: 2015,
+                country: 'Germany'
+            },
+            {
+                model: 'Audi',
+                price: 75000,
+                year: 2017,
+                country: 'Germany'
+            },
+            {
+                model: 'Mercedes',
+                price: 80000,
+                year: 2019,
+                country: 'Germany'
+            },
+            {
+                model: 'Volkswagen',
+                price: 35000,
+                year: 2019,
+                country: 'Germany'
+            },
+        ];
+
+        let filteredCar = car.filter(elem => elem.price > 40000 && elem.model !== 'Mercedes')
+        console.log(filteredCar);
+
+
+        //  необязательные
+        // 11) Есть массив claims если хотя бы один обьект имеет в поле статус значение Open то вернуть true! Ипользовать метод массива some!
+        claims = [
+            {
+                id: 1234,
+                model: 'MC7',
+                status: 'Open'
+            },
+            {
+                id: 3453,
+                model: 'MC7',
+                status: 'Open'
+            },
+            {
+                id: 6343,
+                model: 'Gran Tour',
+                status: 'Closed'
+            },
+            {
+                id: 7644,
+                status: 'In Progress'
+            },
+            {
+                id: 7686,
+                model: 'City Bike',
+                status: 'Closed'
+            },
+            {
+                id: 8356,
+                model: 'Bike',
+                status: 'Closed'
+            },
+            {
+                id: 9745,
+                model: 'Bicycle',
+                status: 'Closed'
+            },
+            {
+                id: 10253,
+                model: 'Bicycle',
+                status: 'Closed'
+            },
+            {
+                id: 14234,
+                model: 'Bike',
+                status: 'Closed'
+            }];
+
+        let openStatus = claims.some(elem => elem.status === 'Open');
+        console.log(openStatus)
+
+        //12) Дан массив arr! Используя пробежаться по массиву и если все больше или равны 2 то вернуть true! Использовть every метод!
+        const arr4 = [10, 6, 3, 5, 6, 2, 12, 64];
+
+        let isEvery = arr4.every(elem => elem >= 2);
+        console.log(isEvery);
+
+        // 13) Используя claims переменную выше!! Удилить все элементы у которых статус isClosed!! Подсказка! удалить не значит брать и явно удалять можно использовать метод массивов и вернуть новый и перезаписать!!
+        let claimsNoClosed = claims.filter(elem => elem.status !== 'Closed');
+        console.log(claimsNoClosed)
+
+        // 14) Написать свой собственный filter! Функция должна принимать два параметра массив и функцию!!
+        function filter(array, f) {
+
+            if (typeof f !== 'function') {
+                console.error('Callback is not a function');
+                return;
+            }
+            
+            let newArray = [];
+            for (let current of array) {
+                if (f(current) === true) {
+                    newArray = [...newArray, current];
+                }
+            }
+            return newArray;
+        }
+        console.log(filter([5, 2, 5, 1, 6, 3, 6], function (el) { return el > 2 }));
+
+        // ВОТ ПРИМЕР КАК НАПИСАТЬ СВОЙ map
+        function map(arr, f) { // arr - массив, f - функция обратного вызова
+            let newArr = [];
+            for (let current of arr) {
+                newArr = [...newArr, f(current)];
+            }
+            return newArr;
+        }
+
+        map([5, 3, 1, 5, 3], function (curr) { return curr * 2 }); // передал два параметра массив и коллбэк
+    </script>
+</body>
+
+</html>
