@@ -23,7 +23,8 @@
         // 2
         const newArr3 = arr5.map(item => [item.author, item.book])
             .reduce((acc, item) => acc.concat(item))
-
+            // или вместо строки .reduce((acc, item) => acc.concat(item)) прописать .flat()   
+            // (как я понял, .flat() это новый метод для объединения нескольких массивов в один)
 
 
         console.log(newArr2)
