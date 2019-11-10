@@ -23,12 +23,14 @@
         // 2
         const newArr3 = arr5.map(item => [item.author, item.book])
             .reduce((acc, item) => acc.concat(item))
-            // или вместо строки .reduce((acc, item) => acc.concat(item)) прописать .flat()   
-            // (как я понял, .flat() это новый метод для объединения нескольких массивов в один)
+        // или вместо строки .reduce((acc, item) => acc.concat(item)) прописать .flat()   
+        // (как я понял, .flat() это новый метод для объединения нескольких массивов в один)
 
 
-        console.log(newArr2)
-        console.log(newArr3)
+
+        console.log(newArr2);
+        console.log(newArr3);
+
 
 
 
@@ -184,7 +186,7 @@
         var arr2 = [6, 5, 2, 4, 'a'];
 
         function getDifference(arr1, arr2) {
-           return arr2.filter(item => !arr1.find(elem => elem === item));
+            return arr2.filter(item => !arr1.find(elem => elem === item));
 
         }
 
@@ -196,7 +198,7 @@
         var arr1 = [5, 2, 'a'];
         var arr2 = [6, 5, 2, 4, 'a'];
 
-        
+
 
         // 9) Есть два обьекта! Вызвать getSpeed1() с контекстом car2 и getSpeed2 с контекстом car1
 
@@ -316,7 +318,7 @@
                 console.error('Callback is not a function');
                 return;
             }
-            
+
             let newArray = [];
             for (let current of array) {
                 if (f(current) === true) {
