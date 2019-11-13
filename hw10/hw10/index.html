@@ -1,0 +1,164 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Есть промис! что за параметры принимает функция? Зачем они? как вернуть обьект {id: 10, name: 'Sergei'} и 
+        // потом принять его с помощью функции промиса then? Как вернуть ошибку в промисе и потом ее перехватить?
+
+        const pr = new Promise(function (resolve, reject) {
+        })
+        // ф-я внутри промиса принимает два параметра resolve и reject (переменные могут быть названы как угодно) - это колбэки, предоставлямые javascript-ом. 
+        // Одна из них будет вызвана, в зависомости от результата внутри функции (внутри функции-исполнителя). 
+        // resolve будет выполнен в случае успешного выполнения кода, reject будет вызван в случае, если произошла ошибка.
+        // Тоесть,  функция-исполнитель получает два аргумента: resolve и reject — это функции, встроенные в JavaScript,  
+        // нам не нужно их писать. Нам нужно лишь позаботиться, чтобы исполнитель вызвал одну из них по готовности.
+        // Вернуть обьект и потом принять его с помощью then можно след. образом 
+        const pr3 = new Promise(function (resolve, reject) {
+            resolve({ id: 10, name: 'Sergey' });
+        })
+
+        pr3.then((a) => console.log(a));
+
+        // Вернуть ошибку и потом принять его с помощью catch можно след. образом 
+        const pr4 = new Promise(function (resolve, reject) {
+            reject(new Error(111))
+        })
+
+        pr4.catch((b) => console.log(b))
+
+        //2) Есть код ! с помощью промисов написать таким образом чтобы выполнилось по порядку от одного до 5!
+        // На данный момент выполнятся setTimeout-ы вконце!!
+        // setTimeout(() => console.log('1'), 1300);
+        // console.log('2')
+        // console.log('3')
+        // setTimeout(() => console.log('4'), 300);
+        // console.log('5')
+
+        const pr5 = new Promise(function (resolve, reject) {
+            setTimeout(() => resolve(console.log('1'), 3300));
+        })
+
+        pr5.then((b) => {
+            console.log(b)
+            return console.log('2');
+        })
+            .then((c) => {
+                console.log(c)
+                return console.log('3');
+            })
+            .then((d) => {
+                console.log(d)
+                return new Promise((resolve, reject) => setTimeout(() => resolve(console.log('4'), 6000)));
+            })
+            .then((f) => {
+                console.log(f)
+                return console.log('5');
+            })
+            .then((e) => {
+                console.log(e);
+            })
+
+
+        //3) Есть код !  Нужно всего лишь написать комментарий что делает каждая из строчок!
+
+        // создаем промис
+        const pr2 = new Promise(function (resolve, reject) {
+            // промис возвращает обьект { id: 2 }
+            resolve({ id: 2 })
+        });
+        // Перехватываем возвращаемый промис в первом then и возвращаем сам объект в (data) => data)
+        pr2.then((data) => data)
+            // Перехватываем результат (объект) из строчки выше и создаем ошибку в строке (res) => { throw new Error('Something went wrong')})
+            .then((res) => {
+                throw new Error('Something went wrong')
+            })
+
+            //  ловим ошибку в .catch и выводим ошибку в консоли. Описание ошибки 'ERROR'
+            .catch((e) => console.log('ERROR', e))
+            
+
+        // 4) Использую Promise.all получить массив из промисов и после чего отсортировать тот что возвращает массив! 
+        const prom1 = new Promise(function (resolve, reject) {
+            resolve(10);
+        })
+        const prom2 = new Promise(function (resolve, reject) {
+            resolve({ id: 3 });
+        })
+        const prom3 = new Promise(function (resolve, reject) {
+            resolve([6, 2, 4, 6]);
+        })
+
+        Promise.all([prom1, prom2, prom3]).then(value => {
+            value[2].sort((a, b) => a - b)
+            console.log(value)
+        })
+
+
+
+        // 5) Есть роуты!!
+        // https://playwithpromise.herokuapp.com/api/order-review/last - вернет обьект с id такой( 5d4762e02481a600174fb1ae )
+        // после чего используя id делаем другой запрос
+        // https://playwithpromise.herokuapp.com/api/order-review/getid/{id} 
+        // ответ будет обьект у которого будет поле orderList - массив с двух обьектов 
+        // у обьектов будет productId еще сделать запрос по productId то есть два запроса ибо 2 обьекта в которых свой productId Promise.all в помощь!!
+        // ВОТ ПРИМЕР ЗАПРОСА по первому URL! Конечно это нужно будет обернуть в промис!
+
+        let orderRequest = new Promise((resolve, reject) => {
+            var Req = new XMLHttpRequest();
+            Req.onload = function () {
+                if (!this.responseText) reject('BYE');
+                resolve(JSON.parse(this.responseText));
+            }
+            Req.open("GET", 'https://playwithpromise.herokuapp.com/api/order-review/last/');
+            Req.send();
+        })
+
+
+        function getId(str) {
+            return new Promise((resolve, reject) => {
+                var Req = new XMLHttpRequest();
+                Req.open("GET", `https://playwithpromise.herokuapp.com/api/order-review/getid/${str}`);
+                Req.send();
+                Req.onload = function () {
+                    if (!this.responseText) reject('BYE');
+                    resolve(JSON.parse(this.responseText));
+                }
+
+            })
+
+        }
+        function getProduct(str) {
+            return new Promise((resolve, reject) => {
+                var Req = new XMLHttpRequest();
+                Req.open("GET", `https://playwithpromise.herokuapp.com/api/order-system/product/${str}`);
+                Req.send();
+                Req.onload = function () {
+                    if (!this.responseText) reject('BYE');
+                    resolve(JSON.parse(this.responseText));
+                }
+            })
+        }
+
+        orderRequest
+            .then(data => data._id)
+            .then(str => getId(str))
+            .then(order => order.orderList)
+            .then(OrderList => {
+                const promiseList = OrderList.map(el => getProduct(el.productId));
+                return Promise.all(promiseList)
+            })
+            .then(fin => console.log(fin))
+            .catch(error => console.log('Error', error))
+
+
+
+    </script>
+</body>
+
+</html>
