@@ -16,16 +16,16 @@
         // setTimeout(() => console.log('4'), 300);
         // console.log('5')
 
-        let pr1 = new Promise((res, rej) => setTimeout(() => res(console.log('1'), 1300)))
-        let pr2 = new Promise((res, rej) => setTimeout(() => res(console.log('4'), 300)))
+        let pr1 = new Promise((res, rej) => setTimeout(() => res('1'), 1300))
+        let pr2 = new Promise((res, rej) => setTimeout(() => res('4'), 300))
 
         async function collate() {
             let firstPr = await pr1;
-
+            console.log(firstPr)
             console.log('2')
             console.log('3')
             let secondPr = await pr2
-
+            console.log(secondPr)
             console.log('5')
         }
 
@@ -80,14 +80,18 @@
         async function getProductName() {
             let firstId = await promis;
             let secondId = await getId(firstId._id);
-            
-            let product = await getProduct(secondId.orderList[0].productId)
-            let product2 = await getProduct(secondId.orderList[1].productId)
-            let productAll = [product, product2]
-            console.log(productAll)
-            
+
+            // let product = await getProduct(secondId.orderList[0].productId)
+            // let product2 = await getProduct(secondId.orderList[1].productId)
+            let productAll = [
+                await getProduct(secondId.orderList[0].productId),
+                await getProduct(secondId.orderList[1].productId)
+            ]
+             return productAll;
+
         }
-        console.log(getProductName())
+
+        getProductName().then(fin => console.log(fin))
 
     </script>
 </body>

@@ -41,24 +41,24 @@
         // console.log('5')
 
         const pr5 = new Promise(function (resolve, reject) {
-            setTimeout(() => resolve(console.log('1'), 3300));
+            setTimeout(() => resolve('1'), 3300);
         })
 
         pr5.then((b) => {
             console.log(b)
-            return console.log('2');
+            return '2';
         })
             .then((c) => {
                 console.log(c)
-                return console.log('3');
+                return '3';
             })
             .then((d) => {
                 console.log(d)
-                return new Promise((resolve, reject) => setTimeout(() => resolve(console.log('4'), 6000)));
+                return new Promise((resolve, reject) => setTimeout(() => resolve('4'), 6000));
             })
             .then((f) => {
                 console.log(f)
-                return console.log('5');
+                return '5';
             })
             .then((e) => {
                 console.log(e);
@@ -72,14 +72,14 @@
             // промис возвращает обьект { id: 2 }
             resolve({ id: 2 })
         });
-        // Перехватываем возвращаемый промис в первом then и возвращаем сам объект в (data) => data)
+        // Перехватываем возвращаемый промис в первом then и возвращаем сам объект в (data) => data). объект хранится в переменной data
         pr2.then((data) => data)
             // Перехватываем результат (объект) из строчки выше и создаем ошибку в строке (res) => { throw new Error('Something went wrong')})
             .then((res) => {
                 throw new Error('Something went wrong')
             })
 
-            //  ловим ошибку в .catch и выводим ошибку в консоли. Описание ошибки 'ERROR'
+            //  ловим ошибку в .catch и выводим ошибку в консоли. Описание ошибки 'ERROR', е - сама ошибка созданная выше
             .catch((e) => console.log('ERROR', e))
             
 
