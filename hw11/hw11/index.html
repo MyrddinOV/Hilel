@@ -81,14 +81,21 @@
             let firstId = await promis;
             let secondId = await getId(firstId._id);
 
-            // let product = await getProduct(secondId.orderList[0].productId)
-            // let product2 = await getProduct(secondId.orderList[1].productId)
             let productAll = [
                 await getProduct(secondId.orderList[0].productId),
                 await getProduct(secondId.orderList[1].productId)
             ]
-             return productAll;
+            return productAll;
 
+            // или так
+
+            // let productAll = Promise.all([getProduct(secondId.orderList[0].productId), getProduct(secondId.orderList[1].productId)]);
+            // return productAll
+
+            // или так
+
+            // let productAll = await secondId.orderList.map(el => getProduct(el.productId));
+            // return Promise.all(productAll);
         }
 
         getProductName().then(fin => console.log(fin))
