@@ -42,7 +42,7 @@
             return 3423;
         })
             .catch((e) => console.log('fdsfd', e));
-            
+
         // В первом случае перехватит тк ошибка не синтаксическая, а это ошибка в присвоении (dfdf is not defined)
 
         // или здесь
@@ -82,11 +82,15 @@
                 mode: 'single'
             });
             const authorized = await context.autorise();
-            const selection = await context.present();
-            selection.forEach((selected) => {
-                uploadedImage = selected;
-                cropImage();
-            });
+            if (authorized) {
+                const selection = context.present();
+                selection.forEach((selected) => {
+                    uploadedImage = selected;
+                    await cropImage();
+                });
+            }
+
+
         }
 
         /**
@@ -107,7 +111,7 @@
             const cameraRequest = await camera.requestPermissions();
             const imageAsset = await camera.takePicture();
             uploadedImage = imageAsset;
-            cropImage();
+            await cropImage();
         }
 
         /**
