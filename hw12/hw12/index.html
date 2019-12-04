@@ -108,10 +108,14 @@
 
         // Новая функция черезе async/await
         async function takePhoto() {
-            const cameraRequest = await camera.requestPermissions();
-            const imageAsset = await camera.takePicture();
-            uploadedImage = imageAsset;
-            await cropImage();
+            try {
+                await camera.requestPermissions();
+                const imageAsset = await camera.takePicture();
+                uploadedImage = imageAsset;
+                await cropImage();
+            } catch (e) {
+                console.log(e)
+            }
         }
 
         /**
