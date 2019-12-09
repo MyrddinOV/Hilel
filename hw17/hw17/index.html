@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Задача состоит в следующем! Написать код который отправляет POST запрос со следующим body! 
+        var obj = {
+            data: {
+                question: 'How are you',
+                answer: 'I am good'
+            }
+        }
+
+        function postData(method, url) {
+            return new Promise((res, rej) => {
+                let xhr = new XMLHttpRequest();
+
+                let json = JSON.stringify(obj);
+
+                xhr.open(method, url)
+
+                xhr.send(res(json));
+            })
+        }
+
+        postData('POST', 'http://localhost:2000/').then(data => {
+            let result = JSON.parse(data);
+            console.log(result)
+            return result
+        })
+
+
+        // И расширить серверную часть ниже добавить заголовки чтобы можно было отправить c любого домена и распарсить body и вернуть его!!
+
+        // http.createServer((req, res) => {
+        //     res.setHeader('Access-Control-Allow-Origin', '*')
+        //     res.end();
+        // }).listen(3000, '127.0.0.1', () => console.log('Server is listening on port:' + 3000));
+
+
+
+        // 2) Отправить запрос исgользуя fetch или xmlhttprequest которой содержит query в url  
+        // http://localhost:3000/phones?priceS=7000&priceF=40000&color=black - вот пример, где ?priceS=7000&priceF=40000&color=black -  query
+        // где 7000 - 40000 - диапазон цен, то есть в query фильтр, диапазон 7000 - 40000  и цвет черный
+        // Делаем сервер, НА сервере есть массив с обьектов, использем модуль
+        // const url = require('url')
+        // чтобы распарсить priceS, priceF, color и отдаем отфильтрованный массив phones по этим 3-м критериям, соответственно если поменять диапазон цен или цвет то и
+        // массив уже будет другой, не хардкодим)))
+
+        function getPhone(method, url) {
+            return new Promise((res, rej) => {
+                let xhr = new XMLHttpRequest();
+
+                xhr.open(method, url);
+                xhr.send();
+                xhr.onload = function () {
+                    if (xhr.status == 200) {
+                        res(xhr.responseText)
+                    }
+                };
+            })
+        };
+
+
+        // изменяемые пользователем параметры поиска
+        let priceS = 7000;
+        let priceF = 40000;
+        let color = 'black';
+
+
+        getPhone('GET', `http://localhost:3000/phone?priceS=${priceS}&priceF=${priceF}&color=${color}`)
+            .then(data => {
+                let result = JSON.parse(data);
+                // возвращаем в консоли отфильтрованный массив товаров с сервера.
+                console.log(result)
+
+            })
+
+
+            // массив в серверной части
+        // const phones = [
+        //     {
+        //         name: 'iphone7',
+        //         price: 14000,
+        //         color: 'black'
+        //     },
+        //     {
+        //         name: 'iphone8',
+        //         price: 18000,
+        //         color: 'white'
+        //     },
+        //     {
+        //         name: 'iphone10',
+        //         price: 24000,
+        //         color: 'pink'
+        //     },
+        //     {
+        //         name: 'iphone11',
+        //         price: 28000,
+        //         color: 'black'
+        //     },
+        //     {
+        //         name: 'sumsung',
+        //         price: 14000,
+        //         color: 'black'
+        //     },
+        //     {
+        //         name: 'xiomi',
+        //         price: 10000,
+        //         color: 'black'
+        //     },
+        //     {
+        //         name: 'meizu',
+        //         price: 8000,
+        //         color: 'green'
+        //     },
+        //     {
+        //         name: 'huaiwei',
+        //         price: 11000,
+        //         color: 'black'
+        //     },
+        // ];
+
+
+
+    </script>
+</body>
+
+</html>
