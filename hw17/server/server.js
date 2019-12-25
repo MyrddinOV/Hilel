@@ -10,7 +10,7 @@ http.createServer((req, res) => {
 }).listen(2000, '127.0.0.1', () => console.log('Server is listening on port:' + 2000));
 
 
-
+ 
 // 2. фильтрация телефонов, сервер на порту 3000
 
 http.createServer((req, res) => {
@@ -74,7 +74,7 @@ http.createServer((req, res) => {
         }
     })
     if (req.url === `/phone?priceS=${priceS}&priceF=${priceF}&color=${color}`) {
-        console.log(filteredPhones)
+        
         res.end(JSON.stringify(filteredPhones));
     }
     res.end("incorrect URL");
