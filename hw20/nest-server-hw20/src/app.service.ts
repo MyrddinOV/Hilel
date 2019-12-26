@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { IFormula } from './interface/formula.interface';
+import { IParameters } from './interface/formula.interface';
 
-
-const formula = {
+const formula: IFormula = {
   "parameters": [
     {
       "id": 703,
@@ -89,48 +90,36 @@ const formula = {
   "name": "rectangular",
   "formula": "round(OP * (H * W * T) / 1000 / 1000 * (100 - FILL) / 100 / 2.1 * (100 + WF) / 100, 1)",
 };
-
-
 @Injectable()
 export class AppService {
 
-
-  getMainPage(): string {
-
-    return `Hello!!!`
-  }
-
-  // get
-  getObj(): object {
-
+  getAll(): IFormula {
     return formula;
   }
-// post
-  postObj(obj): string {
-    formula.parameters.push(obj) 
-    return obj
+
+
+
+  getObjById(objId): object {
+    return formula.parameters.find(obj => obj.id == objId);
   }
-// delete
-  deleteObj(objId: number) {
+
+  deleteObjById(objId): string {
     let index = formula.parameters.findIndex((obj) => obj.id == objId);
     formula.parameters.splice(index, 1);
-    return `removed object by ID: ${objId}`;
+    return `removed object by ID: ${objId}`
   }
 
-
-// advanced
-  mathJS(objArray): any {
-    let newObj = {};
-    
-    objArray.forEach(object => {
-      let index = formula.parameters.findIndex((obj) => obj.id == object.id);
-      newObj[formula.parameters[index].name] = object.value
-    });
-
-    return [newObj, formula.formula]
+  updateObjById(newObj): string {
+    let index = formula.parameters.findIndex((obj) => obj.id == newObj.id)
+    formula.parameters[index] = newObj
+    return `update parameter by ID: ${newObj.id}`
   }
 
+  getMinMax(query): IParameters[] {
+    let newObj = formula
+
+    return newObj.parameters.filter(elem => query.max < elem.validation.max && query.min > elem.validation.min)
+  }
 
 
 }
-
