@@ -23,3 +23,8 @@ export interface IValidation {
     readonly: boolean;
     params: string;
 }
+
+export interface IQueryParams {
+    min: number;
+    max: number;
+}

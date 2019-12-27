@@ -33,8 +33,8 @@ const formula: IFormula = {
     {
       "id": 701,
       "validation": {
-        "min": null,
-        "max": null,
+        "min": 150,
+        "max": 400,
         "required": null,
         "readonly": true,
         "params": null
@@ -46,7 +46,7 @@ const formula: IFormula = {
     {
       "id": 700,
       "validation": {
-        "min": null,
+        "min": 10,
         "max": 400,
         "required": null,
         "readonly": null,
@@ -59,7 +59,7 @@ const formula: IFormula = {
     {
       "id": 698,
       "validation": {
-        "min": null,
+        "min": 30,
         "max": 400,
         "required": null,
         "readonly": null,
@@ -72,8 +72,8 @@ const formula: IFormula = {
     {
       "id": 696,
       "validation": {
-        "min": null,
-        "max": null,
+        "min": 30,
+        "max": 300,
         "required": null,
         "readonly": null,
         "params": null
@@ -90,6 +90,7 @@ const formula: IFormula = {
   "name": "rectangular",
   "formula": "round(OP * (H * W * T) / 1000 / 1000 * (100 - FILL) / 100 / 2.1 * (100 + WF) / 100, 1)",
 };
+
 @Injectable()
 export class AppService {
 
@@ -99,26 +100,44 @@ export class AppService {
 
 
 
-  getObjById(objId): object {
+  getObjById(objId: number): object {
     return formula.parameters.find(obj => obj.id == objId);
   }
 
-  deleteObjById(objId): string {
+  deleteObjById(objId: number): string {
     let index = formula.parameters.findIndex((obj) => obj.id == objId);
     formula.parameters.splice(index, 1);
     return `removed object by ID: ${objId}`
   }
 
-  updateObjById(newObj): string {
+  updateObjById(newObj: IParameters): string {
     let index = formula.parameters.findIndex((obj) => obj.id == newObj.id)
-    formula.parameters[index] = newObj
+    formula.parameters[index] = newObj;
+    // либо можно удалить старый объект и запушить новый, 
+    // но мне кажется что это будет немного тупо)))
+
     return `update parameter by ID: ${newObj.id}`
   }
 
-  getMinMax(query): IParameters[] {
-    let newObj = formula
 
-    return newObj.parameters.filter(elem => query.max < elem.validation.max && query.min > elem.validation.min)
+  getMinMax(min: number, max: number): IParameters[] {
+    let newObj = new Array;
+
+    // не понял по чему фильтровать из задания, отфильтровал по formula.parameters.validation.min (max)
+    // можно и через фильтр но оставил этот вариант, фильтр ниже в варианте фильтрации по айди.
+    formula.parameters.find(elem => {
+      if (elem.validation.min >= min && elem.validation.max <= max) {
+        newObj.push(elem)
+      }
+    })
+    return newObj
+
+    //  ниже код если нужно было отфильтрвать просто по айди
+    // return formula.parameters.filter(elem => elem.id >= min && elem.id <= max) 
+    
+
+
+
   }
 
 

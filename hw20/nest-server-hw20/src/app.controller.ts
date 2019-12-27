@@ -2,7 +2,7 @@ import { Controller, Get, Param, Delete, Put, Body, Query } from '@nestjs/common
 import { AppService } from './app.service';
 import { IFormula } from './interface/formula.interface';
 import { IParameters } from './interface/formula.interface';
-
+import { IQueryParams } from './interface/formula.interface';
 
 @Controller()
 export class AppController {
@@ -41,10 +41,11 @@ export class AppController {
   }
 
   // фильтр по querry min и max
-
-  @Get('/parameter/find/:pr')
-  getMinMax(@Query() query: { min: number, max: number }, @Param('pr') param: number): IParameters[] {
-    return this.appService.getMinMax(query);
- 
+  
+  @Get('find')
+  getMinMax(@Query() query: IQueryParams): IParameters[] {
+    return this.appService.getMinMax(query.min, query.max);
   }
 } 
+
+
