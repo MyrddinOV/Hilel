@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 @Injectable()
 export class TeacherService {
     constructor(
-        @Inject('TeacherModelToken') private readonly teacherModel: Model<Teacher>,
+        @Inject('TeacherModelToken') private readonly teacherModel: Model<ITeacher>,
     ) { }
     async createTeacher(teacher: Teacher) {
         return await this.teacherModel.create(teacher);
