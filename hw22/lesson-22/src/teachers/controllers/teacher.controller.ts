@@ -7,7 +7,7 @@ export class TeacherController {
   constructor(
     // public teacherService: TeacherService
 
-    @Inject('TeacherService') private teacherService: TeacherService
+    @Inject('NewBestToken') private teacherService: TeacherService
 
   ) { }
 

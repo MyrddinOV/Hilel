@@ -8,6 +8,11 @@ import { TeacherService } from './services/teacher.service';
 @Module({
   imports: [DatabaseModule],
   controllers: [TeacherController],
-  providers: [TeacherService,  teacherProvider],
+  providers: [{
+    provide: 'NewBestToken',
+    useClass: TeacherService
+  },
+    teacherProvider]
+
 })
-export class TeachersModule {}
+export class TeachersModule { }

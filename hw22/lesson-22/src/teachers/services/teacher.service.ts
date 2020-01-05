@@ -14,6 +14,7 @@ export class TeacherService {
     }
 
     async getAllTeachers() {
-        return await this.teacherModel.find()
+        // return await this.teacherModel.find();
+        return await this.teacherModel.aggregate([{$lookup: {from: "studentmodels", localField: "studentsId", foreignField: "_id", as: "students"}}]);
     }
 }
