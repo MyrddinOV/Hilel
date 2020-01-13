@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Inject } from '@nestjs/common';
+import { Controller, Get, Post, Body, Inject } from '@nestjs/common';
 import { TeacherService } from '../services/teacher.service';
 import { Teacher } from '../schemas/teacher.schema';
 
