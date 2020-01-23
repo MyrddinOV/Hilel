@@ -1,0 +1,132 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT HW3</title>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.2.5/math.min.js"></script>
+    <script>
+
+
+        // Задача используя mathjs считать формулы. Улучшить код, то есть переписать на классы. И написать кастомную ошибку если не верные параметры переданы выбросить ее.
+
+        // Есть код!
+
+        // const parameters = new Map();
+
+        // parameters.set('D', 10).set('W', 20).set('H', 23).set('T', 54);
+        // const f1 = 'H+W';
+        // const f2 = 'T+W';
+        // const f3 = 'D*W';
+        // const f4 = 'D*W*T';
+
+        // function evaluate(params) {
+        //     const param1 = params[0];
+        //     const param2 = params[1];
+        //     const param3 = params[2];
+
+        //     if(param1 == 'H' && param2 === 'W') console.log(math.evaluate(f1, {H: parameters.get(param1), W: parameters.get(param2)}))
+        //     else if(param1 == 'T' && param2 === 'W') console.log(math.evaluate(f2, {T: parameters.get(param1), W: parameters.get(param2)}))
+        //     else if(param1 == 'D' && param2 === 'W') console.log(math.evaluate(f3, {D: parameters.get(param1), W: parameters.get(param2)}))
+        //     else if(param1 == 'D' && param2 === 'W' && param3 === 'T' ) console.log(math.evaluate(f4, {D: parameters.get(param1), W: parameters.get(param2), T: parameters.get(param3)}))
+
+        // }
+        // let test = ['D', 'W',];
+        // evaluate(test)
+
+
+        const parameters = new Map();
+        parameters.set('D', 10).set('W', 20).set('H', 23).set('T', 54);
+
+
+        //First formula (H + W)
+        class EvaluateSumHW {
+            static evaluate(args) {
+                const formula = 'H+W';
+                const [param1, param2] = args;
+                console.log(formula, math.evaluate(formula, { H: parameters.get(param1), W: parameters.get(param2) }));
+            }
+
+            static criterion = 'HW';
+        }
+
+        //Second formula (T + W)
+        class EvaluateSumTW {
+            static evaluate(args) {
+                const formula = 'T+W';
+                const [param1, param2] = args;
+                console.log(formula, math.evaluate(formula, { T: parameters.get(param1), W: parameters.get(param2) }));
+            }
+
+            static criterion = 'TW'
+        }
+
+        //Third formula (D * W)
+        class EvaluateMultDW {
+            static evaluate(args) {
+                const formula = 'D*W';
+                const [param1, param2] = args;
+                console.log(formula, math.evaluate(formula, { D: parameters.get(param1), W: parameters.get(param2) }));
+            }
+
+            static criterion = 'DW'
+        }
+
+        //Forth formula (D * W * T)
+        class EvaluateMultDWT {
+            static evaluate(args) {
+                const formula = 'D*W*T';
+                const [param1, param2, param3] = args;
+                console.log(formula, math.evaluate(formula, { D: parameters.get(param1), W: parameters.get(param2), T: parameters.get(param3) }));
+            }
+
+            static criterion = 'DWT'
+        }
+
+        // NEw Error
+        class NewErrorForParamEvaluate extends Error {
+            constructor(sumbol) {
+                super(`Error: Введите символы: 'H', 'W', 'D', 'T'. Неверный символ - '${sumbol}'`)
+            }
+        }
+
+        function evaluate(params) {
+            let uncorrectedParam = false;
+
+            params.forEach(parameter => {
+                try {
+                    if (!Array.from(parameters.keys()).includes(parameter)) {
+                        uncorrectedParam = true;
+                        throw new NewErrorForParamEvaluate(parameter);
+                    }
+                } catch (e) {
+                    console.log(e, 'Write correct sumbol');
+                }
+            });
+
+            if (!uncorrectedParam) {
+                let allEvaluateMethods = [EvaluateSumHW, EvaluateSumTW, EvaluateMultDW, EvaluateMultDWT];
+
+                for (let currentClass of allEvaluateMethods) {
+                    if (params.join('').substr(0, currentClass.criterion.length) === currentClass.criterion) {
+                        currentClass.evaluate(params);
+                    }
+                }
+            }
+        }
+
+
+        evaluate(['D', 'W', 'WDFASD']);
+        evaluate(['D', 'W']);
+        evaluate(['H', 'W']);
+        evaluate(['D', 'W', 'T']);
+        evaluate(['T', 'W']);
+
+
+
+
+    </script>
+</body>
+
+</html>
