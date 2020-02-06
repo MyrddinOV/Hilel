@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+
+    <script>
+
+
+        // 1. 
+        const regexp = /^[a-z0-9-_]*\@[a-z]+\.[a-z]{2,3}$/i;
+        console.log(regexp.test('vasiapupkin@gmail.com'));
+        console.log(regexp.test('inokentii-ivanov@gmail.com'));
+        console.log(regexp.test('boria_petrov@mail.ru'));
+
+
+        // 2
+        // Если нужно выдернуть циферки, то как-то так:
+        let regexpNumber = /[0-9]+/g;
+
+        console.log('/person/10/device/90'.match(regexpNumber))
+        console.log('/product/20'.match(regexpNumber))
+
+        // 3
+        const regexp3 = (/^\d+[ghtx]\.$/)
+        console.log(regexp3.test("4x."))
+        console.log(regexp3.test("434h."))
+
+
+    </script>
+</body>
+
+</html>
